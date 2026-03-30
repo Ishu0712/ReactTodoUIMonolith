@@ -1,0 +1,32 @@
+name: Application CI
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+   name: build application
+   runs-on: ubuntu-22.04
+   steps:
+     - name: Checkout code
+       uses: actions/checkout@v6
+       
+     - name: InstallNodeJs 16.x
+       run: |
+        curl -s https://deb.nodesource.com/setup_16.x | sudo bash
+        sudo apt install nodejs -y
+        
+     - name: install dependencies 
+       run: npm install
+       
+     - name: build application
+       run: npm run build
+
+     - name: Upload a Build Artifact
+       uses: actions/upload-artifact@v4
+       with:
+        name: frontendui
+        path: build/
+        
+
+      
+    
