@@ -27,6 +27,19 @@ jobs:
         name: frontendui
         path: build/
         
+  deploy:
+   runs-on: ubuntu-latest
+   needs: build
+   name: Deploy FrontendUI
+   steps:
+     - name: Download a build artifact
+       uses: actions/download-artifact@v3.1.0
+       with:
+         name: frontendui
+         path: ./build
 
+     - name: verify files
+       run: ls -l build
+       
       
     
