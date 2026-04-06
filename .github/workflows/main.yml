@@ -37,9 +37,18 @@ jobs:
        with:
          name: frontendui
          path: ./build
-
+  
      - name: verify files
        run: ls -l build
-       
+         
+     - name: Copy files via SSH
+       uses: appleboy/scp-action@v1
+       with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.VM_USERNAME }}
+          password: ${{ secrets.AZVMPWD }}
+          port: ${{ secrets.VMPORT }}
+          source: "build/*"
+          target: /tmp 
       
     
